@@ -93,14 +93,55 @@ documents = [
             "and commonly use methods such as GET, POST, PUT, "
             "PATCH, and DELETE."
         )
-    }
+    },
+{
+    "title": "Git Branches",
+    "content": (
+        "Git branches allow developers to work on separate "
+        "features without changing the main development line. "
+        "Changes can later be merged into another branch."
+    )
+},
+{
+    "title": "Docker Containers",
+    "content": (
+        "Docker containers package applications with their "
+        "dependencies, allowing them to run consistently "
+        "across different environments."
+    )
+},
+{
+    "title": "FastAPI Validation",
+    "content": (
+        "FastAPI uses Pydantic models to validate incoming "
+        "request data. Invalid data produces a validation "
+        "error before the endpoint logic executes."
+    )
+},
+{
+    "title": "PostgreSQL MVCC",
+    "content": (
+        "PostgreSQL uses Multi-Version Concurrency Control "
+        "to allow transactions to read consistent snapshots "
+        "of data while other transactions modify records."
+    )
+},
+{
+    "title": "Python Decorators",
+    "content": (
+        "Python decorators wrap functions to extend their "
+        "behavior without modifying the original function. "
+        "They are commonly used for logging and authentication."
+    )
+}
 ]
 
 
 def index_documents():
+    new_documents = documents[-5:]
     texts = [
         document["content"]
-        for document in documents
+        for document in new_documents
     ]
 
     response = ollama.embed(
@@ -110,7 +151,7 @@ def index_documents():
 
     embeddings = response["embeddings"]
 
-    if len(embeddings) != len(documents):
+    if len(embeddings) != len(new_documents):
         raise ValueError(
             "Number of embeddings does not match documents"
         )
@@ -138,7 +179,7 @@ def index_documents():
         )
 
         for document, embedding in zip(
-            documents,
+            new_documents,
             embeddings
         ):
             conn.execute(
@@ -157,7 +198,7 @@ def index_documents():
                 )
             )
 
-    print(f"Indexed {len(documents)} documents.")
+    print(f"Indexed {len(new_documents)} documents.")
 
 
 if __name__ == "__main__":

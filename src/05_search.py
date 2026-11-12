@@ -60,26 +60,28 @@ def semantic_search(
 
 
 if __name__ == "__main__":
-    query = (
-        "How can a Python program do other work "
-        "while waiting for network operations?"
-    )
+    queries = [
+        "How can I develop a new feature without affecting the main codebase?",
+        "How can I run my application with the same dependencies on different computers?",
+        "How can an API reject incorrect input before processing a request?",
+        "How can database transactions read data while other transactions are changing it?",
+        "How can I add logging to a function without changing its original code?"
+    ]
 
-    results = semantic_search(query)
+    for query in queries:
+        print(f"\nQuery: {query}\n")
 
-    print(f"\nQuery: {query}\n")
+        results = semantic_search(query, limit=3)
 
-    for index, row in enumerate(
+        for index, (title, content, distance) in enumerate(
             results,
             start=1
-    ):
-        title, content, distance = row
+        ):
+            similarity = 1 - distance
 
-        similarity = 1 - distance
-
-        print(f"{index}. {title}")
-        print(f"   Similarity: {similarity:.4f}")
-        print(f"   {content}")
-        print()
+            print(f"{index}. {title}")
+            print(f"   Similarity: {similarity:.4f}")
+            print(f"   {content}")
+            print()
 
     
