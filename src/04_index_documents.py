@@ -94,51 +94,172 @@ documents = [
             "PATCH, and DELETE."
         )
     },
-{
-    "title": "Git Branches",
-    "content": (
-        "Git branches allow developers to work on separate "
-        "features without changing the main development line. "
-        "Changes can later be merged into another branch."
-    )
-},
-{
-    "title": "Docker Containers",
-    "content": (
-        "Docker containers package applications with their "
-        "dependencies, allowing them to run consistently "
-        "across different environments."
-    )
-},
-{
-    "title": "FastAPI Validation",
-    "content": (
-        "FastAPI uses Pydantic models to validate incoming "
-        "request data. Invalid data produces a validation "
-        "error before the endpoint logic executes."
-    )
-},
-{
-    "title": "PostgreSQL MVCC",
-    "content": (
-        "PostgreSQL uses Multi-Version Concurrency Control "
-        "to allow transactions to read consistent snapshots "
-        "of data while other transactions modify records."
-    )
-},
-{
-    "title": "Python Decorators",
-    "content": (
-        "Python decorators wrap functions to extend their "
-        "behavior without modifying the original function. "
-        "They are commonly used for logging and authentication."
-    )
-}
+    {
+        "title": "Git Branches",
+        "content": (
+            "Git branches allow developers to work on separate "
+            "features without changing the main development line. "
+            "Changes can later be merged into another branch."
+        )
+    },
+    {
+        "title": "Docker Containers",
+        "content": (
+            "Docker containers package applications with their "
+            "dependencies, allowing them to run consistently "
+            "across different environments."
+        )
+    },
+    {
+        "title": "FastAPI Validation",
+        "content": (
+            "FastAPI uses Pydantic models to validate incoming "
+            "request data. Invalid data produces a validation "
+            "error before the endpoint logic executes."
+        )
+    },
+    {
+        "title": "PostgreSQL MVCC",
+        "content": (
+            "PostgreSQL uses Multi-Version Concurrency Control "
+            "to allow transactions to read consistent snapshots "
+            "of data while other transactions modify records."
+        )
+    },
+    {
+        "title": "Python Decorators",
+        "content": (
+            "Python decorators wrap functions to extend their "
+            "behavior without modifying the original function. "
+            "They are commonly used for logging and authentication."
+        )
+    },
+    {
+        "title": "Python Generators",
+        "content": (
+            "Python generators produce values one at a time using "
+            "the yield keyword. They allow programs to process "
+            "large sequences without storing everything in memory."
+        )
+    },
+    {
+        "title": "Python Context Managers",
+        "content": (
+            "Python context managers manage resources such as "
+            "files and database connections. The with statement ensures "
+            "that cleanup happens when a block finishes."
+        )
+    },
+    {
+        "title": "Python Exceptions",
+        "content": (
+            "Python exceptions allow programs to handle errors "
+            "using try and except blocks instead of terminating "
+            "unexpectedly."
+        )
+    },
+    {
+        "title": "FastAPI Dependency Injection",
+        "content": (
+            "FastAPI dependency injection allows endpoints to "
+            "receive reusable components such as database sessions "
+            "and authentication services through Depends."
+        )
+    },
+    {
+        "title": "FastAPI Middleware",
+        "content": (
+            "FastAPI middleware processes HTTP requests before "
+            "they reach endpoints and responses before they "
+            "are returned to clients."
+        )
+    },
+    {
+        "title": "HTTP PATCH",
+        "content": (
+            "The HTTP PATCH method applies partial modifications "
+            "to an existing resource without replacing the entire "
+            "resource representation."
+        )
+    },
+    {
+        "title": "PostgreSQL Isolation Levels",
+        "content": (
+            "PostgreSQL isolation levels control how concurrent "
+            "transactions observe database changes. Read Committed, "
+            "Repeatable Read, and Serializable provide different "
+            "levels of consistency."
+        )
+    },
+    {
+        "title": "PostgreSQL WAL",
+        "content": (
+            "PostgreSQL Write-Ahead Logging records database changes "
+            "before modified data pages are written to disk. "
+            "This supports crash recovery and durability."
+        )
+    },
+    {
+        "title": "PostgreSQL VACUUM",
+        "content": (
+            "PostgreSQL VACUUM removes dead row versions created "
+            "by updates and deletes, allowing storage space "
+            "to be reused and helping maintain performance."
+        )
+    },
+    {
+        "title": "Git Merge Conflicts",
+        "content": (
+            "Git merge conflicts occur when changes from different "
+            "branches cannot be combined automatically. Developers "
+            "must resolve conflicting changes before completing "
+            "the merge."
+        )
+    },
+    {
+        "title": "Git Pull Requests",
+        "content": (
+            "Pull requests allow developers to propose code changes "
+            "for review before merging them into a shared branch."
+        )
+    },
+    {
+        "title": "Docker Volumes",
+        "content": (
+            "Docker volumes store persistent data independently "
+            "of containers, allowing information to survive "
+            "container removal and recreation."
+        )
+    },
+    {
+        "title": "Docker Networks",
+        "content": (
+            "Docker networks enable containers to communicate "
+            "with each other while providing network isolation."
+        )
+    },
+    {
+        "title": "React Hooks",
+        "content": (
+            "React Hooks allow function components to manage state "
+            "and side effects. Common hooks include useState "
+            "and useEffect."
+        )
+    },
+    {
+        "title": "RTK Query",
+        "content": (
+            "RTK Query simplifies fetching and caching server data "
+            "in Redux applications. It manages loading states, "
+            "cached responses, and automatic refetching."
+        )
+    }
 ]
 
 
 def index_documents():
-    new_documents = documents[-5:]
+    new_documents = documents
+
     texts = [
         document["content"]
         for document in new_documents
@@ -178,6 +299,14 @@ def index_documents():
             """
         )
 
+        conn.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS
+                documents_title_unique_idx
+            ON documents (title)
+            """
+        )
+
         for document, embedding in zip(
             new_documents,
             embeddings
@@ -190,6 +319,7 @@ def index_documents():
                     embedding
                 )
                 VALUES (%s, %s, %s)
+                ON CONFLICT (title) DO NOTHING
                 """,
                 (
                     document["title"],
@@ -198,7 +328,7 @@ def index_documents():
                 )
             )
 
-    print(f"Indexed {len(new_documents)} documents.")
+    print(f"Processed {len(new_documents)} documents.")
 
 
 if __name__ == "__main__":

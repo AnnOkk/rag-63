@@ -60,28 +60,34 @@ def semantic_search(
 
 
 if __name__ == "__main__":
-    queries = [
-        "How can I develop a new feature without affecting the main codebase?",
-        "How can I run my application with the same dependencies on different computers?",
-        "How can an API reject incorrect input before processing a request?",
-        "How can database transactions read data while other transactions are changing it?",
-        "How can I add logging to a function without changing its original code?"
-    ]
+    while True:
+        query = input("\nSearch (or 'exit'): ").strip()
 
-    for query in queries:
-        print(f"\nQuery: {query}\n")
+        if query.lower() == "exit":
+            break
 
-        results = semantic_search(query, limit=3)
+        if not query:
+            print("Please enter a search query.")
+            continue
+
+        try:
+            limit = int(input("Top K (default 3): ") or 3)
+            if limit < 1:
+                print("Top K must be positive.")
+                continue
+        except ValueError:
+            print("Please enter a valid number.")
+            continue
+
+        results = semantic_search(query, limit=limit)
 
         for index, (title, content, distance) in enumerate(
-            results,
-            start=1
+            results, start=1
         ):
             similarity = 1 - distance
 
-            print(f"{index}. {title}")
+            print(f"\n{index}. {title}")
             print(f"   Similarity: {similarity:.4f}")
             print(f"   {content}")
-            print()
 
     
