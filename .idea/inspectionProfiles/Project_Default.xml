@@ -1,0 +1,77 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="anaconda-anon-usage" />
+          <option value="anaconda-auth" />
+          <option value="anaconda-cli-base" />
+          <option value="annotated-types" />
+          <option value="archspec" />
+          <option value="boltons" />
+          <option value="brotlicffi" />
+          <option value="cffi" />
+          <option value="charset-normalizer" />
+          <option value="click" />
+          <option value="colorama" />
+          <option value="conda" />
+          <option value="conda-anaconda-telemetry" />
+          <option value="conda-anaconda-tos" />
+          <option value="conda-content-trust" />
+          <option value="conda-libmamba-solver" />
+          <option value="conda-package-handling" />
+          <option value="conda_package_streaming" />
+          <option value="cryptography" />
+          <option value="distro" />
+          <option value="frozendict" />
+          <option value="jaraco.classes" />
+          <option value="jaraco.context" />
+          <option value="jaraco.functools" />
+          <option value="jsonpatch" />
+          <option value="jsonpointer" />
+          <option value="keyring" />
+          <option value="libmambapy" />
+          <option value="markdown-it-py" />
+          <option value="mdurl" />
+          <option value="menuinst" />
+          <option value="more-itertools" />
+          <option value="msgpack" />
+          <option value="packaging" />
+          <option value="pkce" />
+          <option value="platformdirs" />
+          <option value="pluggy" />
+          <option value="pycosat" />
+          <option value="pycparser" />
+          <option value="pydantic" />
+          <option value="pydantic-settings" />
+          <option value="pydantic_core" />
+          <option value="Pygments" />
+          <option value="PyJWT" />
+          <option value="PySocks" />
+          <option value="python-dotenv" />
+          <option value="pywin32-ctypes" />
+          <option value="readchar" />
+          <option value="requests" />
+          <option value="rich" />
+          <option value="ruamel.yaml" />
+          <option value="ruamel.yaml.clib" />
+          <option value="semver" />
+          <option value="setuptools" />
+          <option value="shellingham" />
+          <option value="tomli" />
+          <option value="tomlkit" />
+          <option value="tqdm" />
+          <option value="truststore" />
+          <option value="typer" />
+          <option value="typer-slim" />
+          <option value="typing-inspection" />
+          <option value="urllib3" />
+          <option value="wheel" />
+          <option value="win_inet_pton" />
+          <option value="zstandard" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
